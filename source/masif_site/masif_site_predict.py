@@ -122,6 +122,6 @@ for ppi_pair_id in ppi_pair_ids:
         print(embeddings[1])
         print(embeddings[0].shape)
 
-        np.save("output/embeddings.npy", embeddings[0])
-        np.save("output/fc2_embxeddings.npy", embeddings[2])
-        np.save("output/score_values.npy", embeddings[3])
+        np.save(f"output/embeddings_{pdb_chain_id}.npy", embeddings[0])
+        np.save(f"output/fc2_embxeddings_{pdb_chain_id}.npy", embeddings[2])
+        np.save(f"output/score_values_{pdb_chain_id}.npy", embeddings[3])
