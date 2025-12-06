@@ -330,6 +330,7 @@ class MaSIF_site:
                 )
 
                 # Do a second convolutional layer. input: batch_size, n_feat -- output: batch_size, n_feat
+                print("nb conv layer", n_conv_layers)
                 if n_conv_layers > 1:
                     # Rebuild a patch based on the output of the first layer
                     self.global_desc = tf.gather(
@@ -399,6 +400,7 @@ class MaSIF_site:
                         self.mu_theta_l3,
                         self.sigma_theta_l3,
                     )  # batch_size, n_gauss, n_gauss*n_theta
+                    self.patches_fingerprints = tf.identity(self.global_desc)
                     batch_size = tf.shape(self.global_desc)[0]
                     self.global_desc = tf.reshape(
                         self.global_desc,
@@ -447,6 +449,7 @@ class MaSIF_site:
                             self.n_thetas * self.n_rhos,
                         ],
                     )
+                    self.patches_fingerprints = tf.identity(self.global_desc)
                     self.global_desc = tf.reduce_max(self.global_desc, axis=2)
                     self.global_desc_shape = tf.shape(self.global_desc)
                 # refine global desc with MLP

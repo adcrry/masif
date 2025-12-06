@@ -51,7 +51,7 @@ def extract_masif_site_embeddings(
         learning_obj.indices_tensor: indices,
     }
 
-    score = learning_obj.session.run([learning_obj.global_desc], feed_dict=feed_dict)
+    score = learning_obj.session.run([learning_obj.patches_fingerprints, learning_obj.global_desc_shape, learning_obj.global_desc, learning_obj.full_score], feed_dict=feed_dict)
     return score
 
 
