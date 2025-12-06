@@ -72,7 +72,8 @@ class MaSIF_site:
         sigma_theta,
         eps=1e-5,
         mean_gauss_activation=True,
-    ):
+    ):  
+        print("test")
         n_samples = tf.shape(rho_coords)[0]
         n_vertices = tf.shape(rho_coords)[1]
         n_feat = tf.shape(input_feat)[2]
