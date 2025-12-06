@@ -5,9 +5,9 @@ import numpy as np
 from IPython.core.debugger import set_trace
 import sys
 import importlib
-from masif_modules.train_masif_site import run_masif_site
+from masif_modules.train_masif_site import run_masif_site, extract_masif_site_embeddings
 from default_config.masif_opts import masif_opts
-
+import tensorflow as tf
 """
 masif_site_predict.py: Evaluate one or multiple proteins on MaSIF-site. 
 Pablo Gainza - LPDI STI EPFL 2019
@@ -109,7 +109,7 @@ for ppi_pair_id in ppi_pair_ids:
         print("Total number of patches:{} \n".format(len(mask)))
 
         tic = time.time()
-        scores = run_masif_site(
+        embeddings = extract_masif_site_embeddings(
             params,
             learning_obj,
             rho_wrt_center,
@@ -118,15 +118,6 @@ for ppi_pair_id in ppi_pair_ids:
             mask,
             indices,
         )
-        toc = time.time()
-        print(
-            "Total number of patches for which scores were computed: {}\n".format(
-                len(scores[0])
-            )
-        )
-        print("GPU time (real time, not actual GPU time): {:.3f}s".format(toc-tic))
-        np.save(
-            params["out_pred_dir"] + "/pred_" + pdbid + "_" + chains[ix] + ".npy",
-            scores,
-        )
+        print(embeddings[0].shape)
+        print(len(embeddings))
 

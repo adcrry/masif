@@ -38,6 +38,23 @@ def run_masif_site(
     return score
 
 
+def extract_masif_site_embeddings(
+    params, learning_obj, rho_wrt_center, theta_wrt_center, input_feat, mask, indices
+):
+    indices = pad_indices(indices, mask.shape[1])
+    mask = np.expand_dims(mask, 2)
+    feed_dict = {
+        learning_obj.rho_coords: rho_wrt_center,
+        learning_obj.theta_coords: theta_wrt_center,
+        learning_obj.input_feat: input_feat,
+        learning_obj.mask: mask,
+        learning_obj.indices_tensor: indices,
+    }
+
+    score = learning_obj.session.run([learning_obj.global_desc], feed_dict=feed_dict)
+    return score
+
+
 def compute_roc_auc(pos, neg):
     labels = np.concatenate([np.ones((len(pos))), np.zeros((len(neg)))])
     dist_pairs = np.concatenate([pos, neg])
