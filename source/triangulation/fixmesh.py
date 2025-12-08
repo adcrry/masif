@@ -27,8 +27,10 @@ def fix_mesh(mesh, resolution, detail="normal"):
     count = 0;
     print("Removing degenerated triangles")
     mesh, __ = pymesh.remove_degenerated_triangles(mesh, 100);
+    print("A")
     mesh, __ = pymesh.split_long_edges(mesh, target_len);
     num_vertices = mesh.num_vertices;
+    print("C")
     while True:
         mesh, __ = pymesh.collapse_short_edges(mesh, 1e-6);
         mesh, __ = pymesh.collapse_short_edges(mesh, target_len,
@@ -41,7 +43,7 @@ def fix_mesh(mesh, resolution, detail="normal"):
         #print("#v: {}".format(num_vertices));
         count += 1;
         if count > 10: break;
-
+    print("find while")
     mesh = pymesh.resolve_self_intersection(mesh);
     mesh, __ = pymesh.remove_duplicated_faces(mesh);
     mesh = pymesh.compute_outer_hull(mesh);

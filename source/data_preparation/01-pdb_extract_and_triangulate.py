@@ -51,6 +51,8 @@ extractPDB(pdb_filename, out_filename1+".pdb", chain_ids1)
 try:
     vertices1, faces1, normals1, names1, areas1 = computeMSMS(out_filename1+".pdb",\
         protonate=True)
+    # vertices1 += np.s.normal(0, 5, vertices1.shape)
+    
 except:
     set_trace()
 
@@ -67,6 +69,7 @@ vertices2 = vertices1
 faces2 = faces1
 
 # Fix the mesh.
+# print("vertices2", vertices2)
 mesh = pymesh.form_mesh(vertices2, faces2)
 regular_mesh = fix_mesh(mesh, masif_opts['mesh_res'])
 

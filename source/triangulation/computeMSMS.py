@@ -29,6 +29,7 @@ def computeMSMS(pdb_file,  protonate=True):
     stdout, stderr = p2.communicate()
 
     vertices, faces, normals, names = read_msms(file_base)
+    print("vertices", vertices)
     areas = {}
     ses_file = open(file_base+".area")
     next(ses_file) # ignore header line
